@@ -4,11 +4,16 @@ function BrandStory() {
   const BrandStoryContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding: 0px 40px;
+    margin-bottom: 100px;
+    @media (max-width: 768px) {
+      display: block;
+    }
   `;
 
   const BrandStoryImg = styled.img`
-    height: 470px;
-    width: 480px;
+    height: auto;
+    width: 100%;
     border-top-right-radius: 50%;
     border-top-left-radius: 50%;
   `;
@@ -17,8 +22,11 @@ function BrandStory() {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 60px;
-    border-left: 1px solid gainsboro;
+    padding-left: 50px;
+    @media (max-width: 768px) {
+      padding-left: 0px;
+      padding-top: 20px;
+    }
   `;
 
   const BrandStoryStyedSpan = styled.span`
@@ -28,7 +36,7 @@ function BrandStory() {
     color: #194b44;
   `;
 
-  const BrandStoryStyedPre = styled.pre`
+  const BrandStoryStyedP = styled.p`
     color: #a7a19a;
     line-height: 23px;
   `;
@@ -38,11 +46,11 @@ function BrandStory() {
       <BrandStoryImg src='/images/cozy_introduction1.jpg' art='제목없음' />
       <BrandStoryTextBox>
         <BrandStoryStyedSpan>with COZY</BrandStoryStyedSpan>
-        <BrandStoryStyedPre>
-          {`따뜻한 커피 한 잔으로 시작하는 아침의 홈카페,
-간단하게 즐기는 여유로운 브런치와 하루의 피로를 씻어주는 저녁 식사,
-소중한 사람들과 함께하는 주말의 홈파티`}
-        </BrandStoryStyedPre>
+        <BrandStoryStyedP>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus placeat laboriosam, amet repellat quam unde
+          repellendus consequatur totam accusamus deserunt exercitationem nemo impedit porro, nesciunt, ratione quos veritatis
+          alias. Illo.
+        </BrandStoryStyedP>
       </BrandStoryTextBox>
     </BrandStoryContainer>
   );

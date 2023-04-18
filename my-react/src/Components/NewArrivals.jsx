@@ -6,11 +6,14 @@ function NewArrivals() {
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (max-width: 768px) {
+      padding-bottom: 50px;
+    }
   `;
 
   const ProductImg = styled.img`
-    height: 325px;
-    width: 325px;
+    height: auto;
+    width: 100%;
     object-fit: cover;
     object-position: top;
     margin-bottom: 30px;
@@ -19,6 +22,10 @@ function NewArrivals() {
       transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
     }
     transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
+
+    @media (max-width: 768px) {
+      margin-bottom: 10px;
+    }
   `;
 
   const AddCartBtn = styled.button`

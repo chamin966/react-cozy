@@ -23,9 +23,16 @@ function Home() {
   const NewArrivalsContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
     height: auto;
-    width: 1000px;
+    max-width: 1000px;
     margin-bottom: 100px;
+    gap: 10px;
+    padding: 40px;
+    @media (max-width: 768px) {
+      display: block;
+      margin-bottom: 0px;
+    }
   `;
 
   const NewArrivalsFont = styled.div`
@@ -41,11 +48,14 @@ function Home() {
 
   const BestSellersFont = styled(NewArrivalsFont)`
     margin-bottom: 0px;
+    @media (max-width: 768px) {
+      text-align: center;
+      margin-bottom: 40px;
+    }
   `;
 
   const BrandStoryContainer = styled.div`
-    width: 1200px;
-    margin: 100px 0px;
+    max-width: 1000px;
   `;
 
   return (
@@ -65,8 +75,6 @@ function Home() {
       </BestSellersContainer>
       <BrandStoryContainer>
         <BrandStory />
-      </BrandStoryContainer>
-      <BrandStoryContainer>
         <BrandStory />
       </BrandStoryContainer>
     </HomeContainer>
