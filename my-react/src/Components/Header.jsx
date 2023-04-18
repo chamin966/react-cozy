@@ -26,7 +26,7 @@ function Header() {
     <HeaderContainer>
       <LoginAndCartDiv>
         <Link>Singin</Link>
-        <Link>Cart</Link>
+        <Link to={'/cart'}>Cart</Link>
       </LoginAndCartDiv>
       <CozyLogoDiv>
         <img src='/images/cozy_logo.png' alt='제목없음' />
