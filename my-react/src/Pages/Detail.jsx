@@ -4,6 +4,7 @@ function Detail() {
   const DetailContainer = styled.div`
     display: flex;
     justify-content: center;
+    padding: 0px 20px;
   `;
 
   const DetailBox = styled.div`
@@ -11,12 +12,12 @@ function Detail() {
     grid-template-columns: 1fr 1fr;
     padding: 100px 0px;
     gap: 30px;
-    width: 850px;
+    width: 1000px;
   `;
 
   const ProductImage = styled.img`
-    max-height: 480px;
-    max-width: 480px;
+    max-height: auto;
+    max-width: 100%;
     right: 0px;
   `;
 
