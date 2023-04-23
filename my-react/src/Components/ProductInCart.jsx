@@ -1,38 +1,39 @@
 import styled from 'styled-components';
 
+const ProductInCartContainer = styled.tr`
+  height: 100px;
+`;
+const ProductImage = styled.img`
+  height: 55px;
+  width: 55px;
+`;
+
+const ProductInfoTd = styled.td`
+  text-align: start;
+  #product-info__name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    word-break: keep-all;
+    margin-bottom: 5px;
+  }
+`;
+
+const ProductCountTd = styled.td`
+  label {
+    margin-right: 5px;
+  }
+  input {
+    width: 30px;
+    padding-left: 5px;
+  }
+`;
+
+const RemoveBtn = styled.button`
+  background-color: white;
+  border: none;
+`;
+
 function ProductInCart() {
-  const ProductInCartContainer = styled.tr`
-    height: 100px;
-  `;
-  const ProductImage = styled.img`
-    height: 55px;
-    width: 55px;
-  `;
-
-  const ProductInfoTd = styled.td`
-    text-align: start;
-    #product-info__name {
-      font-weight: 600;
-      font-size: 1.1rem;
-      word-break: keep-all;
-      margin-bottom: 5px;
-    }
-  `;
-
-  const ProductCountTd = styled.td`
-    label {
-      margin-right: 5px;
-    }
-    input {
-      width: 30px;
-      padding-left: 5px;
-    }
-  `;
-
-  const RemoveBtn = styled.button`
-    background-color: white;
-    border: none;
-  `;
   return (
     <ProductInCartContainer>
       <td>

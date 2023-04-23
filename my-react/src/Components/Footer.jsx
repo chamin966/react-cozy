@@ -1,23 +1,24 @@
 import styled from 'styled-components';
 
+const FooterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 25vh;
+  width: 100%;
+  background-color: #f3f2ed;
+  font-size: small;
+  padding-left: 40px;
+  gap: 20px;
+  div {
+    margin-top: 10px;
+  }
+  div a {
+    padding-right: 20px;
+  }
+`;
+
 function Footer() {
-  const FooterContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 25vh;
-    width: 100%;
-    background-color: #f3f2ed;
-    font-size: small;
-    padding-left: 40px;
-    gap: 20px;
-    div {
-      margin-top: 10px;
-    }
-    div a {
-      padding-right: 20px;
-    }
-  `;
   return (
     <FooterContainer>
       <p>상호: 코지 | 대표: 000 | 개인정보관리책임자: 000 | 전화: 미입력 | 이메일: cozy@email.com</p>

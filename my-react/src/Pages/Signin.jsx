@@ -1,51 +1,51 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-function Signin() {
-  const SigninContainer = styled.div`
-    min-height: 45vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0px;
-  `;
+const SigninContainer = styled.div`
+  min-height: 45vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0px;
+`;
 
-  const LoginForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: large;
+const LoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: large;
 
-    button,
-    input {
-      height: 40px;
-      width: 300px;
-    }
+  button,
+  input {
+    height: 40px;
+    width: 300px;
+  }
 
-    input {
-      border-radius: 5px;
-      background-color: #fafafa;
-      border: 1px solid gainsboro;
-      padding-left: 10px;
-    }
+  input {
+    border-radius: 5px;
+    background-color: #fafafa;
+    border: 1px solid gainsboro;
+    padding-left: 10px;
+  }
 
-    button {
-      width: 100%;
-      border-radius: 10px;
-      border: none;
-      background-color: #e4742a;
-      margin-bottom: 10px;
-    }
-  `;
-
-  const SignupLinkBox = styled.div`
-    padding: 10px 0px;
+  button {
     width: 100%;
-    text-align: center;
-    font-size: 0.9rem;
-  `;
+    border-radius: 10px;
+    border: none;
+    background-color: #e4742a;
+    margin-bottom: 10px;
+  }
+`;
 
+const SignupLinkBox = styled.div`
+  padding: 10px 0px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+`;
+
+function Signin() {
   return (
     <SigninContainer>
       <LoginForm>
