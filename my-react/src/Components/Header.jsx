@@ -24,6 +24,10 @@ function Header() {
     justify-content: center;
     align-items: center;
     padding-right: 17px;
+
+    &:hover {
+      opacity: 0.6;
+    }
   `;
 
   return (
