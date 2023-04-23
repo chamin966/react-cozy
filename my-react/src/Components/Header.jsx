@@ -29,11 +29,13 @@ function Header() {
   return (
     <HeaderContainer>
       <LoginAndCartDiv>
-        <Link>Singin</Link>
+        <Link to={'/signin'}>Singin</Link>
         <Link to={'/cart'}>Cart</Link>
       </LoginAndCartDiv>
       <CozyLogoDiv>
-        <img src='/images/cozy_logo.png' alt='제목없음' />
+        <Link to={'/'}>
+          <img src='/images/cozy_logo.png' alt='제목없음' />
+        </Link>
       </CozyLogoDiv>
     </HeaderContainer>
   );

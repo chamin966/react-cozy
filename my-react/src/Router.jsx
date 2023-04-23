@@ -5,6 +5,8 @@ import Footer from './Components/Footer';
 import Detail from './Pages/Detail';
 import ScrollToTop from './Components/ScrollToTop';
 import Cart from './Pages/Cart';
+import Signin from './Pages/Signin';
+import Signup from './Pages/Signup';
 
 function Router() {
   return (
@@ -15,6 +17,8 @@ function Router() {
         <Route path='/' exact element={<Home />} />
         <Route path='/:id' exact element={<Detail />} />
         <Route path='/cart' exact element={<Cart />} />
+        <Route path='/signin' exact element={<Signin />} />
+        <Route path='/signup' exact element={<Signup />} />
       </Routes>
       <Footer />
     </BrowserRouter>
