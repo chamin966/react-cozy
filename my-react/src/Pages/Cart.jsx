@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ProductInCart from '../Components/ProductInCart';
 
 function Cart() {
   const CartContainer = styled.div`
@@ -6,6 +7,7 @@ function Cart() {
     justify-content: center;
     min-height: 45vh;
     padding: 150px 20px;
+    font-size: 0.8rem;
   `;
 
   const CartContentBox = styled.div`
@@ -20,13 +22,17 @@ function Cart() {
     }
   `;
 
-  const ProductTextUpper = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 4fr 2fr 2fr 2fr;
+  const ProductTextTable = styled.table`
     width: 100%;
     text-align: center;
     border-bottom: 1px solid black;
-    padding: 10px 0px;
+    border-collapse: collapse;
+
+    th,
+    tr {
+      border-bottom: 1px solid black;
+      padding: 10px;
+    }
   `;
 
   const ProductTextLower = styled.div`
@@ -101,14 +107,20 @@ function Cart() {
     <CartContainer>
       <CartContentBox>
         <h1>Cart</h1>
-        <ProductTextUpper>
-          <input type='checkbox' />
-          <div>전체선택 0/3</div>
-          <div>상품정보</div>
-          <div>수량</div>
-          <div>상품금액</div>
-        </ProductTextUpper>
-
+        <ProductTextTable>
+          <tr>
+            <th>
+              <input type='checkbox' />
+            </th>
+            <th>전체선택 0/3</th>
+            <th>상품정보</th>
+            <th>수량</th>
+            <th>가격</th>
+          </tr>
+          <ProductInCart />
+          <ProductInCart />
+          <ProductInCart />
+        </ProductTextTable>
         <ProductTextLower>
           <ChooseBox>
             <div>전체선택 0/3</div>

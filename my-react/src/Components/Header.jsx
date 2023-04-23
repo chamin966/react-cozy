@@ -12,7 +12,11 @@ function Header() {
     display: flex;
     gap: 10px;
     justify-content: end;
-    padding: 10px 150px 45px 0px;
+    padding: 10px 20vh 45px 0px;
+
+    @media (max-width: 768px) {
+      padding: 10px 10vh 45px 0px;
+    }
   `;
 
   const CozyLogoDiv = styled.div`
