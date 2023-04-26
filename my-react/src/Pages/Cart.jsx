@@ -81,15 +81,19 @@ const OderButtonBox = styled.div`
 
 const CozyOrderBtn = styled.button`
   height: 40px;
-  background-color: #e57428;
-  color: white;
-  border: none;
+  border: 1px solid #e57428;
+  background-color: white;
+  color: #e57428;
   border-radius: 12px;
   padding: 0px 15px;
   box-sizing: content-box;
   font-size: 1rem;
+  transition: all ease 0.3s;
+
   &:hover {
-    cursor: pointer;
+    background-color: #e57428;
+    color: white;
+    border-radius: 35px;
   }
 
   @media (max-width: 768px) {
@@ -99,6 +103,14 @@ const CozyOrderBtn = styled.button`
 
 const CozyCancleBtn = styled(CozyOrderBtn)`
   background-color: #194b44;
+  border: none;
+  color: white;
+
+  &:hover {
+    background-color: #194b44;
+    color: white;
+  }
+
   @media (max-width: 768px) {
     width: auto;
   }
