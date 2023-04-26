@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { cozy_imagesInDB } from '../DB/db';
 
 const HeaderContainer = styled.div`
   height: 30vh;
@@ -59,7 +61,7 @@ const CozyLogoDiv = styled.div`
   padding-right: 18px;
   padding-top: 55px;
 
-  &:hover {
+  img:hover {
     opacity: 0.6;
   }
 `;
@@ -78,7 +80,7 @@ const CartCountCircle = styled.div`
   border-radius: 50%;
 `;
 
-function Header() {
+function Header({ productInCart }) {
   const [position, setPosition] = useState(0);
 
   const onScroll = () => {
@@ -106,16 +108,20 @@ function Header() {
         <LoginAndCartDiv>
           <Link to={'/signin'}>Singin</Link>
           <Link to={'/cart'}>Cart</Link>
-          <CartCountCircle>1</CartCountCircle>
+          <CartCountCircle>{productInCart.length}</CartCountCircle>
         </LoginAndCartDiv>
       </HeaderNavigation>
       <CozyLogoDiv>
         <Link to={'/'}>
-          <img src='/images/cozy_logo.png' alt='제목없음' />
+          <img src={cozy_imagesInDB[0].imgUrl} alt='제목없음' />
         </Link>
       </CozyLogoDiv>
     </HeaderContainer>
   );
 }
 
-export default Header;
+function mapStateToProps(state, ownProps) {
+  return { productInCart: state };
+}
+
+export default connect(mapStateToProps)(Header);

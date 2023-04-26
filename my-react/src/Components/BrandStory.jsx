@@ -35,22 +35,18 @@ const BrandStoryStyedSpan = styled.span`
   color: #194b44;
 `;
 
-const BrandStoryStyedP = styled.p`
+const BrandStoryStyedPre = styled.pre`
   color: #a7a19a;
   line-height: 23px;
 `;
 
-function BrandStory() {
+function BrandStory({ imageUrl, overview, title }) {
   return (
     <BrandStoryContainer>
-      <BrandStoryImg src='/images/cozy_introduction1.jpg' art='제목없음' />
+      <BrandStoryImg src={imageUrl} art='제목없음' />
       <BrandStoryTextBox>
-        <BrandStoryStyedSpan>with COZY</BrandStoryStyedSpan>
-        <BrandStoryStyedP>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus placeat laboriosam, amet repellat quam unde
-          repellendus consequatur totam accusamus deserunt exercitationem nemo impedit porro, nesciunt, ratione quos veritatis
-          alias. Illo.
-        </BrandStoryStyedP>
+        <BrandStoryStyedSpan>{title}</BrandStoryStyedSpan>
+        <BrandStoryStyedPre>{overview}</BrandStoryStyedPre>
       </BrandStoryTextBox>
     </BrandStoryContainer>
   );

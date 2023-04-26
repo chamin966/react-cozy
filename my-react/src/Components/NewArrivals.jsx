@@ -46,15 +46,15 @@ const ProductInfo = styled.div`
   gap: 7px;
 `;
 
-function NewArrivals() {
+function NewArrivals({ id, imageUrl, price, title }) {
   return (
     <NewArrivalsContainer>
-      <Link to={`/${1234}`}>
-        <ProductImg src='images/cozy_new1.jpg' alt='제목없음' />
+      <Link to={`/${id}`}>
+        <ProductImg src={imageUrl} alt='제목없음' />
       </Link>
       <ProductInfo>
-        <div>제품 이름</div>
-        <div>제품 가격</div>
+        <div>{title}</div>
+        <div>{price.toLocaleString()}원</div>
         <AddCartBtn>add cart</AddCartBtn>
       </ProductInfo>
     </NewArrivalsContainer>
