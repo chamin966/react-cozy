@@ -1,4 +1,6 @@
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { removeProduct } from '../store';
 
 const ProductInCartContainer = styled.tr`
   height: 100px;
@@ -33,33 +35,39 @@ const RemoveBtn = styled.button`
   border: none;
 `;
 
-function ProductInCart() {
+function ProductInCart({ id, imageUrl, price, title, remove }) {
+  const onClickRemoveProductBtn = () => {
+    remove(id);
+    alert('장바구니에서 해당 품목이 삭제 되었습니다.');
+  };
   return (
     <ProductInCartContainer>
       <td>
         <input type='checkbox' />
       </td>
       <td>
-        <ProductImage src='/images/cozy_item1.jpg' alt='제목없음' />
+        <ProductImage src={imageUrl} alt='제목없음' />
       </td>
       <ProductInfoTd>
-        <div id='product-info__name'>플레이트 접시 & 카트러리 세트</div>
-        <div>28,000 ￦</div>
+        <div id='product-info__name'>{title}</div>
+        <div>{price.toLocaleString()}￦</div>
       </ProductInfoTd>
       <ProductCountTd>
         <label htmlFor='productCount'>수량</label>
         <input type='number' id='productCount' defaultValue={1} />
       </ProductCountTd>
-      <td>28,000 ￦</td>
+      <td>{price.toLocaleString()}￦</td>
       <td>
-        <RemoveBtn>
-          <span class='material-symbols-outlined'>close</span>
+        <RemoveBtn onClick={onClickRemoveProductBtn}>
+          <span className='material-symbols-outlined'>close</span>
         </RemoveBtn>
       </td>
     </ProductInCartContainer>
   );
 }
 
-export default ProductInCart;
+function mapDispatchToProps(dispatch, ownProps) {
+  return { remove: (id) => dispatch(removeProduct(id)) };
+}
 
-// 천단위 콤마: console.log(number.toLocaleString('ko-KR')); // 3,500 한국기준
+export default connect(null, mapDispatchToProps)(ProductInCart);

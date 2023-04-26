@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import NewArrivals from '../Components/NewArrivals';
 import BestSellers from '../Components/BestSellers';
 import BrandStory from '../Components/BrandStory';
+import { bestSellersInDB, brandStoryInDB, cozy_imagesInDB, newArrivalsInDB } from '../DB/db';
 
 const HomeContainer = styled.div`
   display: flex;
@@ -60,22 +61,23 @@ const BrandStoryContainer = styled.div`
 function Home() {
   return (
     <HomeContainer>
-      <CarouselImg src='images/cozy_main.jpg' alt='제목없음' />
+      <CarouselImg src={cozy_imagesInDB[1].imgUrl} alt='제목없음' />
       <NewArrivalsFont>New Arrivals</NewArrivalsFont>
       <NewArrivalsContainer>
-        <NewArrivals />
-        <NewArrivals />
-        <NewArrivals />
+        {newArrivalsInDB.map((v, i) => (
+          <NewArrivals key={i} id={v.id} imageUrl={v.imgUrl} price={v.price} title={v.title} />
+        ))}
       </NewArrivalsContainer>
       <BestSellersContainer>
         <BestSellersFont>Best Sellers</BestSellersFont>
-        <BestSellers />
-        <BestSellers />
-        <BestSellers />
+        {bestSellersInDB.map((v, i) => (
+          <BestSellers key={i} id={v.id} imageUrl={v.imgUrl} price={v.price} title={v.title} />
+        ))}
       </BestSellersContainer>
       <BrandStoryContainer>
-        <BrandStory />
-        <BrandStory />
+        {brandStoryInDB.map((v, i) => (
+          <BrandStory key={i} imageUrl={v.imgUrl} overview={v.overview} title={v.title} />
+        ))}
       </BrandStoryContainer>
     </HomeContainer>
   );

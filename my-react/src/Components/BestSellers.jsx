@@ -1,5 +1,7 @@
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { addProuct } from '../store';
 
 //TODO: NewArrivals  컴포넌트랑 내부 구성 똑같음 나중에 최적화시키기
 
@@ -48,19 +50,31 @@ const ProductInfo = styled.div`
   gap: 7px;
 `;
 
-function BestSellers({ id, imageUrl, price, title }) {
+function BestSellers({ id, imageUrl, price, title, addCart }) {
+  const onClickAddCartBtn = () => {
+    addCart();
+    alert('장바구니에 품목이 담겼습니다.');
+  };
+
   return (
     <BestSellersContainer>
-      <Link to={`/${id}`}>
+      <Link to={`/${id}`} state={{ id, imageUrl, price, title }}>
         <ProductImg src={imageUrl} alt='제목없음' />
       </Link>
       <ProductInfo>
         <div>{title}</div>
         <div>{price.toLocaleString()}원</div>
-        <AddCartBtn>add cart</AddCartBtn>
+        <AddCartBtn onClick={onClickAddCartBtn}>add cart</AddCartBtn>
       </ProductInfo>
     </BestSellersContainer>
   );
 }
 
-export default BestSellers;
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    addCart: () =>
+      dispatch(addProuct({ id: ownProps.id, imageUrl: ownProps.imageUrl, price: ownProps.price, title: ownProps.title })),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(BestSellers);

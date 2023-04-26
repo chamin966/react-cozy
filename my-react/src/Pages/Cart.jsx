@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import ProductInCart from '../Components/ProductInCart';
+import { connect } from 'react-redux';
+import { removeProduct } from '../store';
 
 const CartContainer = styled.div`
   display: flex;
@@ -102,24 +104,26 @@ const CozyCancleBtn = styled(CozyOrderBtn)`
   }
 `;
 
-function Cart() {
+function Cart({ products, remove }) {
   return (
     <CartContainer>
       <CartContentBox>
         <h1>Cart</h1>
         <ProductTextTable>
-          <tr>
-            <th>
-              <input type='checkbox' />
-            </th>
-            <th>전체선택 0/3</th>
-            <th>상품정보</th>
-            <th>수량</th>
-            <th>가격</th>
-          </tr>
-          <ProductInCart />
-          <ProductInCart />
-          <ProductInCart />
+          <tbody>
+            <tr>
+              <th>
+                <input type='checkbox' />
+              </th>
+              <th>전체선택 0/3</th>
+              <th>상품정보</th>
+              <th>수량</th>
+              <th>가격</th>
+            </tr>
+            {products.map((v, i) => (
+              <ProductInCart key={i} id={v.id} imageUrl={v.imageUrl} price={v.price} title={v.title} />
+            ))}
+          </tbody>
         </ProductTextTable>
         <ProductTextLower>
           <ChooseBox>
@@ -140,4 +144,12 @@ function Cart() {
   );
 }
 
-export default Cart;
+function mapStateToProps(state, ownProps) {
+  return { products: state };
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return { remove: (id) => dispatch(removeProduct(id)) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

@@ -1,4 +1,7 @@
+import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { addProuct } from '../store';
 
 const DetailContainer = styled.div`
   display: flex;
@@ -72,16 +75,24 @@ const PayButtonBox = styled.div`
   }
 `;
 
-function Detail() {
+function Detail({ addCart }) {
+  const location = useLocation();
+  const productInfo = location.state;
+
+  const onClickAddCartBtn = () => {
+    addCart(productInfo);
+    alert('장바구니에 품목이 담겼습니다.');
+  };
+
   return (
     <DetailContainer>
       <DetailBox>
-        <ProductImage src='/images/cozy_item1.jpg' alt='제목없음' />
+        <ProductImage src={productInfo.imageUrl} alt='제목없음' />
         <InfoBox>
           <TextInfoBox>
-            <h1>제품 이름</h1>
-            <div>12,000원</div>
-            <div>제품 상세 설명</div>
+            <h1>{productInfo.title}</h1>
+            <div>{productInfo.price.toLocaleString()}원</div>
+            <div>{productInfo.title}</div>
             <EaInfoBox>
               <div>수량</div>
               <input type='number' defaultValue={1} />
@@ -98,7 +109,7 @@ function Detail() {
             </PayInfoBoxPriceAndTotal>
           </PayInfoBox>
           <PayButtonBox>
-            <button>ADD CART</button>
+            <button onClick={onClickAddCartBtn}>ADD CART</button>
             <button>ODER</button>
           </PayButtonBox>
         </InfoBox>
@@ -107,4 +118,10 @@ function Detail() {
   );
 }
 
-export default Detail;
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    addCart: (productInfoObj) => dispatch(addProuct(productInfoObj)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Detail);

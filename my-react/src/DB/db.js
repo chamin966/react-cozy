@@ -12,13 +12,13 @@ export const cozy_imagesInDB = [
 export const bestSellersInDB = [
   {
     id: '1001',
-    title: '카네수즈 레트로 원형 플레이트 접시 세트',
+    title: '카네수즈 레트로 원형 플레이트 세트',
     price: 17200,
     imgUrl: 'images/cozy_item1.jpg',
   },
   {
     id: '1002',
-    title: '코지테이블 미우캣츠 투명 내열유리컵',
+    title: '코지테이블 미우캣츠 투명 내열 유리컵',
     price: 8500,
     imgUrl: 'images/cozy_item2.jpg',
   },
