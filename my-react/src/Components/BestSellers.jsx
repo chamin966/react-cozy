@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { addProuct } from '../store';
+import { addProuct } from '../products-in-cart-slice';
 
 //TODO: NewArrivals  컴포넌트랑 내부 구성 똑같음 나중에 최적화시키기
 
@@ -50,10 +50,14 @@ const ProductInfo = styled.div`
   gap: 7px;
 `;
 
-function BestSellers({ id, imageUrl, price, title, addCart }) {
+function BestSellers({ productInCart, id, imageUrl, price, title, addCartAtHome }) {
   const onClickAddCartBtn = () => {
-    addCart();
-    alert('장바구니에 품목이 담겼습니다.');
+    if (productInCart[id]) {
+      alert('이미 장바구니에 담긴 상품입니다.');
+    } else {
+      addCartAtHome();
+      alert('장바구니에 품목이 담겼습니다.');
+    }
   };
 
   return (
@@ -70,11 +74,17 @@ function BestSellers({ id, imageUrl, price, title, addCart }) {
   );
 }
 
+function mapStateToProps(state, ownProps) {
+  return { productInCart: state.cartReducer };
+}
+
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    addCart: () =>
-      dispatch(addProuct({ id: ownProps.id, imageUrl: ownProps.imageUrl, price: ownProps.price, title: ownProps.title })),
+    addCartAtHome: () =>
+      dispatch(
+        addProuct({ id: ownProps.id, imageUrl: ownProps.imageUrl, price: ownProps.price, title: ownProps.title, count: 1 })
+      ),
   };
 }
 
-export default connect(null, mapDispatchToProps)(BestSellers);
+export default connect(mapStateToProps, mapDispatchToProps)(BestSellers);

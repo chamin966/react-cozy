@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { removeProduct } from '../store';
+import { useState } from 'react';
+import { addProuct, removeProduct } from '../products-in-cart-slice';
+import { addOrder, removeOrder } from '../order-slice';
 
 const ProductInCartContainer = styled.tr`
   height: 100px;
@@ -35,15 +37,37 @@ const RemoveBtn = styled.button`
   border: none;
 `;
 
-function ProductInCart({ id, imageUrl, price, title, remove }) {
+function ProductInCart({ products, checkedToOrder, id, imageUrl, price, title, count, addP, removeP, addO, removeO }) {
+  const [productCount, setProductCount] = useState(count);
+  const [totalPrice, setTotalPrice] = useState(price);
+
   const onClickRemoveProductBtn = () => {
-    remove(id);
+    removeProduct(id);
     alert('장바구니에서 해당 품목이 삭제 되었습니다.');
   };
+
+  const onChangeProductCount = (e) => {
+    setProductCount(e.target.value);
+    setTotalPrice(price * e.target.value);
+    addP({ id, imageUrl, price, title, count: Number(e.target.value) });
+    if (checkedToOrder[id] !== undefined) {
+      addO({ id, imageUrl, price, title, count: Number(e.target.value) });
+    }
+    alert('수량이 변경되었습니다.');
+  };
+
+  const onChangeChecked = (e) => {
+    if (e.target.checked) {
+      addO({ id, imageUrl, price, title, count });
+    } else {
+      removeO(id);
+    }
+  };
+
   return (
     <ProductInCartContainer>
       <td>
-        <input type='checkbox' />
+        <input type='checkbox' name='checkboxForOrder' value={id} onChange={onChangeChecked} />
       </td>
       <td>
         <ProductImage src={imageUrl} alt='제목없음' />
@@ -54,9 +78,17 @@ function ProductInCart({ id, imageUrl, price, title, remove }) {
       </ProductInfoTd>
       <ProductCountTd>
         <label htmlFor='productCount'>수량</label>
-        <input type='number' id='productCount' defaultValue={1} />
+        <input
+          type='number'
+          id='productCount'
+          min={1}
+          max={99}
+          value={productCount}
+          onChange={onChangeProductCount}
+          itemID={id}
+        />
       </ProductCountTd>
-      <td>{price.toLocaleString()}￦</td>
+      <td>{totalPrice.toLocaleString()}￦</td>
       <td>
         <RemoveBtn onClick={onClickRemoveProductBtn}>
           <span className='material-symbols-outlined'>close</span>
@@ -66,8 +98,17 @@ function ProductInCart({ id, imageUrl, price, title, remove }) {
   );
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
-  return { remove: (id) => dispatch(removeProduct(id)) };
+function mapStateToProps(state, ownProps) {
+  return { products: state.cartReducer, checkedToOrder: state.orderReducer };
 }
 
-export default connect(null, mapDispatchToProps)(ProductInCart);
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    addP: (productInfoObj) => dispatch(addProuct(productInfoObj)),
+    removeP: (id) => dispatch(removeProduct(id)),
+    addO: (productInfoObj) => dispatch(addOrder(productInfoObj)),
+    removeO: (id) => dispatch(removeOrder(id)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductInCart);

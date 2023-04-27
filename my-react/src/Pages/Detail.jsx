@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { addProuct } from '../store';
+import { useState } from 'react';
+import { addProuct } from '../products-in-cart-slice';
 
 const DetailContainer = styled.div`
   display: flex;
@@ -75,13 +76,30 @@ const PayButtonBox = styled.div`
   }
 `;
 
-function Detail({ addCart }) {
+function Detail({ productInCart, addCartAtDetail }) {
   const location = useLocation();
   const productInfo = location.state;
+  const [productCount, setProductCount] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(productInfo.price);
 
   const onClickAddCartBtn = () => {
-    addCart(productInfo);
-    alert('장바구니에 품목이 담겼습니다.');
+    if (productInCart[productInfo.id]) {
+      alert('이미 장바구니에 담긴 상품입니다.\n수량 변경은 장바구니 페이지에서 가능합니다.');
+    } else {
+      addCartAtDetail({
+        id: productInfo.id,
+        imageUrl: productInfo.imageUrl,
+        price: totalPrice,
+        title: productInfo.title,
+        count: productCount,
+      });
+      alert('장바구니에 품목이 담겼습니다.');
+    }
+  };
+
+  const onChangeProductCount = (e) => {
+    setProductCount(e.target.value);
+    setTotalPrice(productInfo.price * e.target.value);
   };
 
   return (
@@ -95,17 +113,17 @@ function Detail({ addCart }) {
             <div>{productInfo.title}</div>
             <EaInfoBox>
               <div>수량</div>
-              <input type='number' defaultValue={1} />
+              <input type='number' value={productCount} min={1} max={99} onChange={onChangeProductCount} />
             </EaInfoBox>
           </TextInfoBox>
           <PayInfoBox>
             <PayInfoBoxPriceAndTotal>
               <div>Total Price</div>
-              <div>12,000 원</div>
+              <div>{totalPrice.toLocaleString()} 원</div>
             </PayInfoBoxPriceAndTotal>
             <PayInfoBoxPriceAndTotal>
               <div>Total Item</div>
-              <div>1 ea</div>
+              <div>{productCount} ea</div>
             </PayInfoBoxPriceAndTotal>
           </PayInfoBox>
           <PayButtonBox>
@@ -118,10 +136,14 @@ function Detail({ addCart }) {
   );
 }
 
+function mapStateToProps(state, ownProps) {
+  return { productInCart: state.cartReducer };
+}
+
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    addCart: (productInfoObj) => dispatch(addProuct(productInfoObj)),
+    addCartAtDetail: (productInfoObj) => dispatch(addProuct(productInfoObj)),
   };
 }
 
-export default connect(null, mapDispatchToProps)(Detail);
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

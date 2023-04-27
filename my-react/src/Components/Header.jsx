@@ -108,7 +108,7 @@ function Header({ productInCart }) {
         <LoginAndCartDiv>
           <Link to={'/signin'}>Singin</Link>
           <Link to={'/cart'}>Cart</Link>
-          <CartCountCircle>{productInCart.length}</CartCountCircle>
+          <CartCountCircle>{Object.keys(productInCart).length}</CartCountCircle>
         </LoginAndCartDiv>
       </HeaderNavigation>
       <CozyLogoDiv>
@@ -121,7 +121,7 @@ function Header({ productInCart }) {
 }
 
 function mapStateToProps(state, ownProps) {
-  return { productInCart: state };
+  return { productInCart: state.cartReducer };
 }
 
 export default connect(mapStateToProps)(Header);

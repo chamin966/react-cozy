@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import ProductInCart from '../Components/ProductInCart';
 import { connect } from 'react-redux';
-import { removeProduct } from '../store';
+import { removeProduct } from '../products-in-cart-slice';
+import ProductInCart from '../Components/ProductInCart';
 
 const CartContainer = styled.div`
   display: flex;
@@ -116,7 +116,9 @@ const CozyCancleBtn = styled(CozyOrderBtn)`
   }
 `;
 
-function Cart({ products, remove }) {
+// TODO: 전체선택, 전체 삭제, 선택 취소 구현
+
+function Cart({ products, remove, checkedToOrder }) {
   return (
     <CartContainer>
       <CartContentBox>
@@ -125,27 +127,43 @@ function Cart({ products, remove }) {
           <tbody>
             <tr>
               <th>
-                <input type='checkbox' />
+                <input type='checkbox' name='checkboxForOrder' />
               </th>
-              <th>전체선택 0/3</th>
+              <th>
+                전체선택 {Object.keys(checkedToOrder).length}/{Object.keys(products).length}
+              </th>
               <th>상품정보</th>
               <th>수량</th>
               <th>가격</th>
             </tr>
-            {products.map((v, i) => (
-              <ProductInCart key={i} id={v.id} imageUrl={v.imageUrl} price={v.price} title={v.title} />
+            {Object.keys(products).map((v, i) => (
+              <ProductInCart
+                key={i}
+                id={v}
+                imageUrl={products[v].imageUrl}
+                price={products[v].price}
+                title={products[v].title}
+                count={products[v].count}
+              />
             ))}
           </tbody>
         </ProductTextTable>
         <ProductTextLower>
           <ChooseBox>
-            <div>전체선택 0/3</div>
+            <div>
+              전체선택 {Object.keys(checkedToOrder).length}/{Object.keys(products).length}
+            </div>
             <CozyCancleBtn>선택 취소</CozyCancleBtn>
           </ChooseBox>
           <PriceAndEaBox>
             <div>Total Price</div>
-            <div>Total (0 item)</div>
-            <div>0 won</div>
+            <div>Total ({Object.keys(checkedToOrder).length} item)</div>
+            <div>
+              {Object.keys(checkedToOrder)
+                .reduce((acc, cur) => acc + checkedToOrder[cur].count * checkedToOrder[cur].price, 0)
+                .toLocaleString()}{' '}
+              원
+            </div>
           </PriceAndEaBox>
         </ProductTextLower>
         <OderButtonBox>
@@ -157,7 +175,7 @@ function Cart({ products, remove }) {
 }
 
 function mapStateToProps(state, ownProps) {
-  return { products: state };
+  return { products: state.cartReducer, checkedToOrder: state.orderReducer };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
