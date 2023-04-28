@@ -152,8 +152,6 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
     }
   };
 
-  console.log('장바구니:', products, '체크된 물품:', checkedToOrder);
-
   return (
     <CartContainer>
       <CartContentBox>

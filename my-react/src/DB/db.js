@@ -6,6 +6,8 @@ export const cozy_imagesInDB = [
   {
     title: 'cozy_main',
     imgUrl: 'images/cozy_main.jpg',
+    text1: '대충 차렸는데\n브런치 카페 느낌',
+    text2: 'SYRACUSE MAPLE TABLEWARE',
   },
 ];
 

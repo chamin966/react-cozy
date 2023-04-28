@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { useState } from 'react';
 import { addProuct, removeProduct } from '../products-in-cart-slice';
 import { addOrder, removeOrder } from '../order-slice';
 

@@ -12,14 +12,6 @@ const HomeContainer = styled.div`
   width: 100%;
 `;
 
-const CarouselImg = styled.img`
-  height: 500px;
-  width: 100vw;
-  object-fit: cover;
-  object-position: top;
-  margin-bottom: 100px;
-`;
-
 const NewArrivalsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -39,6 +31,7 @@ const NewArrivalsFont = styled.div`
   font-family: 'Bodoni Moda', serif;
   font-size: 3rem;
   color: #e4742a;
+  margin-top: 100px;
   margin-bottom: 50px;
 `;
 
@@ -58,10 +51,52 @@ const BrandStoryContainer = styled.div`
   max-width: 1000px;
 `;
 
+const CarouselBox = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const CarouselImg = styled.img`
+  height: 500px;
+  width: 100vw;
+  object-fit: cover;
+  object-position: top;
+  /* opacity: 0.9; */
+`;
+
+const CarouselTextBox = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 32%;
+  padding-left: 20%;
+  text-shadow: 0 1px 20px rgba(200, 190, 180, 1);
+
+  #carousel-text1 {
+    font-family: 'Pretendard-Bold';
+    font-size: 3.7rem;
+    font-weight: 600;
+    color: white;
+    padding: 0px 0px 20px 0px;
+  }
+
+  #carousel-text2 {
+    font-family: 'Pretendard-Thin';
+    font-size: 1.6rem;
+    color: white;
+    text-shadow: 0.1px 0.1px 0.5px white;
+  }
+`;
+
 function Home() {
   return (
     <HomeContainer>
-      <CarouselImg src={cozy_imagesInDB[1].imgUrl} alt='제목없음' />
+      <CarouselBox>
+        <CarouselImg src={cozy_imagesInDB[1].imgUrl} alt='제목없음' />
+        <CarouselTextBox>
+          <pre id='carousel-text1'>{cozy_imagesInDB[1].text1}</pre>
+          <p id='carousel-text2'>{cozy_imagesInDB[1].text2}</p>
+        </CarouselTextBox>
+      </CarouselBox>
       <NewArrivalsFont>New Arrivals</NewArrivalsFont>
       <NewArrivalsContainer>
         {newArrivalsInDB.map((v, i) => (

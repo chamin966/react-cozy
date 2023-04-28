@@ -19,6 +19,7 @@ const HeaderNavigation = styled.nav`
   grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
   height: 50px;
+  z-index: 1;
 
   #cozy-logo {
     font-family: 'Bodoni Moda', serif;
