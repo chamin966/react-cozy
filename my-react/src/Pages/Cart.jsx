@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { removeProduct } from '../products-in-cart-slice';
 import ProductInCart from '../Components/ProductInCart';
+import { addOrder, removeOrder } from '../order-slice';
 
 const CartContainer = styled.div`
   display: flex;
@@ -116,9 +117,26 @@ const CozyCancleBtn = styled(CozyOrderBtn)`
   }
 `;
 
-// TODO: 전체선택, 전체 삭제, 선택 취소 구현
+// TODO: 전체선택, 전체 삭제, 선택 취소, 메인 사진에 문자 넣기 구현
 
-function Cart({ products, remove, checkedToOrder }) {
+function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
+  const onClickChecksAll = (e) => {
+    if (e.target.checked) {
+      Object.keys(products).forEach((v) => {
+        let tempObj = {};
+        Object.assign(tempObj, products[v]);
+        tempObj['id'] = v;
+        addO(tempObj);
+      });
+    } else {
+      Object.keys(products).forEach((v) => {
+        removeO(v);
+      });
+    }
+  };
+
+  console.log('장바구니:', products, '체크된 물품:', checkedToOrder);
+
   return (
     <CartContainer>
       <CartContentBox>
@@ -127,7 +145,14 @@ function Cart({ products, remove, checkedToOrder }) {
           <tbody>
             <tr>
               <th>
-                <input type='checkbox' name='checkboxForOrder' />
+                <input
+                  type='checkbox'
+                  name='checkboxForOrder'
+                  checked={
+                    Object.keys(checkedToOrder).length === Object.keys(products).length && Object.keys(products).length !== 0
+                  }
+                  onChange={onClickChecksAll}
+                />
               </th>
               <th>
                 전체선택 {Object.keys(checkedToOrder).length}/{Object.keys(products).length}
@@ -179,7 +204,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  return { remove: (id) => dispatch(removeProduct(id)) };
+  return {
+    removeP: (id) => dispatch(removeProduct(id)),
+    removeO: (id) => dispatch(removeOrder(id)),
+    addO: (productsObj) => dispatch(addOrder(productsObj)),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

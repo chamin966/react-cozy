@@ -67,7 +67,7 @@ function ProductInCart({ products, checkedToOrder, id, imageUrl, price, title, c
   return (
     <ProductInCartContainer>
       <td>
-        <input type='checkbox' name='checkboxForOrder' value={id} onChange={onChangeChecked} />
+        <input type='checkbox' name='checkboxForOrder' checked={checkedToOrder[id]} value={id} onChange={onChangeChecked} />
       </td>
       <td>
         <ProductImage src={imageUrl} alt='제목없음' />
