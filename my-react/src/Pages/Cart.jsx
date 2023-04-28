@@ -117,8 +117,6 @@ const CozyCancleBtn = styled(CozyOrderBtn)`
   }
 `;
 
-// TODO: 전체선택, 전체 삭제, 선택 취소, 메인 사진에 문자 넣기 구현
-
 function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
   const onClickChecksAll = (e) => {
     if (e.target.checked) {
@@ -132,6 +130,25 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
       Object.keys(products).forEach((v) => {
         removeO(v);
       });
+    }
+  };
+
+  const onClickCancleProducts = (e) => {
+    if (window.confirm('선택된 상품을 삭제하시겠습니까?')) {
+      Object.keys(checkedToOrder).forEach((v) => {
+        removeO(v);
+        removeP(v);
+      });
+    }
+  };
+
+  const onClickOrderProducts = (e) => {
+    if (window.confirm('선택된 상품을 주문하시겠습니까?')) {
+      Object.keys(checkedToOrder).forEach((v) => {
+        removeO(v);
+        removeP(v);
+      });
+      window.alert('주문이 완료되었습니다.');
     }
   };
 
@@ -162,14 +179,7 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
               <th>가격</th>
             </tr>
             {Object.keys(products).map((v, i) => (
-              <ProductInCart
-                key={i}
-                id={v}
-                imageUrl={products[v].imageUrl}
-                price={products[v].price}
-                title={products[v].title}
-                count={products[v].count}
-              />
+              <ProductInCart key={i} id={v} />
             ))}
           </tbody>
         </ProductTextTable>
@@ -178,7 +188,7 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
             <div>
               전체선택 {Object.keys(checkedToOrder).length}/{Object.keys(products).length}
             </div>
-            <CozyCancleBtn>선택 취소</CozyCancleBtn>
+            <CozyCancleBtn onClick={onClickCancleProducts}>선택 취소</CozyCancleBtn>
           </ChooseBox>
           <PriceAndEaBox>
             <div>Total Price</div>
@@ -192,7 +202,7 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
           </PriceAndEaBox>
         </ProductTextLower>
         <OderButtonBox>
-          <CozyOrderBtn>ORDER</CozyOrderBtn>
+          <CozyOrderBtn onClick={onClickOrderProducts}>ORDER</CozyOrderBtn>
         </OderButtonBox>
       </CartContentBox>
     </CartContainer>

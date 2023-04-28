@@ -37,28 +37,44 @@ const RemoveBtn = styled.button`
   border: none;
 `;
 
-function ProductInCart({ products, checkedToOrder, id, imageUrl, price, title, count, addP, removeP, addO, removeO }) {
-  const [productCount, setProductCount] = useState(count);
-  const [totalPrice, setTotalPrice] = useState(price);
+//TODO: 선택 취소, 주문하기 수량 가격 에러 해결, 사진에 문자넣기
 
+// products, checkedToOrder, id, imageUrl, price, title, count, addP, removeP, addO, removeO
+function ProductInCart({ products, checkedToOrder, id, addP, removeP, addO, removeO }) {
   const onClickRemoveProductBtn = () => {
-    removeProduct(id);
-    alert('장바구니에서 해당 품목이 삭제 되었습니다.');
+    removeP(id);
+    window.alert('장바구니에서 해당 품목이 삭제 되었습니다.');
   };
 
   const onChangeProductCount = (e) => {
-    setProductCount(e.target.value);
-    setTotalPrice(price * e.target.value);
-    addP({ id, imageUrl, price, title, count: Number(e.target.value) });
+    window.alert('수량이 변경되었습니다.');
+    addP({
+      id,
+      imageUrl: products[id].imageUrl,
+      price: products[id].price,
+      title: products[id].title,
+      count: Number(e.target.value),
+    });
     if (checkedToOrder[id] !== undefined) {
-      addO({ id, imageUrl, price, title, count: Number(e.target.value) });
+      addO({
+        id,
+        imageUrl: products[id].imageUrl,
+        price: products[id].price,
+        title: products[id].title,
+        count: Number(e.target.value),
+      });
     }
-    alert('수량이 변경되었습니다.');
   };
 
   const onChangeChecked = (e) => {
     if (e.target.checked) {
-      addO({ id, imageUrl, price, title, count });
+      addO({
+        id,
+        imageUrl: products[id].imageUrl,
+        price: products[id].price,
+        title: products[id].title,
+        count: products[id].count,
+      });
     } else {
       removeO(id);
     }
@@ -70,11 +86,11 @@ function ProductInCart({ products, checkedToOrder, id, imageUrl, price, title, c
         <input type='checkbox' name='checkboxForOrder' checked={checkedToOrder[id]} value={id} onChange={onChangeChecked} />
       </td>
       <td>
-        <ProductImage src={imageUrl} alt='제목없음' />
+        <ProductImage src={products[id].imageUrl} alt='제목없음' />
       </td>
       <ProductInfoTd>
-        <div id='product-info__name'>{title}</div>
-        <div>{price.toLocaleString()}￦</div>
+        <div id='product-info__name'>{products[id].title}</div>
+        <div>{products[id].price.toLocaleString()}￦</div>
       </ProductInfoTd>
       <ProductCountTd>
         <label htmlFor='productCount'>수량</label>
@@ -83,12 +99,12 @@ function ProductInCart({ products, checkedToOrder, id, imageUrl, price, title, c
           id='productCount'
           min={1}
           max={99}
-          value={productCount}
+          value={products[id].count}
           onChange={onChangeProductCount}
           itemID={id}
         />
       </ProductCountTd>
-      <td>{totalPrice.toLocaleString()}￦</td>
+      <td>{(products[id].count * products[id].price).toLocaleString()}￦</td>
       <td>
         <RemoveBtn onClick={onClickRemoveProductBtn}>
           <span className='material-symbols-outlined'>close</span>
